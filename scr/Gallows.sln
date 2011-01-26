@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallows.Game", "Gallows.Game\Gallows.Game.csproj", "{ADC4F4E8-038F-458C-874B-AAE3278F19FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gallows.Game.Tests", "Tests\Gallows.Game.Tests\Gallows.Game.Tests.csproj", "{D94A7355-6726-4B1E-9CD8-D0F5EC83779E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADC4F4E8-038F-458C-874B-AAE3278F19FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC4F4E8-038F-458C-874B-AAE3278F19FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC4F4E8-038F-458C-874B-AAE3278F19FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC4F4E8-038F-458C-874B-AAE3278F19FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D94A7355-6726-4B1E-9CD8-D0F5EC83779E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D94A7355-6726-4B1E-9CD8-D0F5EC83779E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D94A7355-6726-4B1E-9CD8-D0F5EC83779E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D94A7355-6726-4B1E-9CD8-D0F5EC83779E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

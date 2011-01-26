@@ -1,0 +1,8 @@
+# Project #
+######################
+bin/
+obj/
+Tools/
+*.suo
+*.user
+*.nupkg
