@@ -1,40 +1,7 @@
 ﻿using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 namespace Gallows.Game
 {
-
-
-    public class GallowGameAttempts
-    {
-        public IDictionary<char, int[]> Attempts;
-
-        public GallowGameAttempts()
-        {
-            this.Attempts = new Dictionary<char, int[]>();
-        }
-
-        public void Manage(char letter, IEnumerable<int> index)
-        {
-            if (this.Attempts.ContainsKey(letter))
-                throw new GameLetterException(Gallows.Game.Properties.Resources.Message_Exception);
-
-            this.Attempts.Add(letter, index.ToArray());
-        }
-
-        public IEnumerable<KeyValuePair<char, int[]>> GetWrongLetters()
-        {
-            return this.Attempts.Where(c => c.Value == new int[] { -1 });
-        }
-
-
-        public IEnumerable<KeyValuePair<char, int[]>> GetCorrectLetters()
-        {
-            return this.Attempts.Where(c => c.Value != new int[] { -1 });
-        }
-
-    }
-
     public class GallowGame
     {
         public GallowGame(Word word)
@@ -48,9 +15,11 @@ namespace Gallows.Game
         public string Tip { get; set; }
         public int MissCount { get; private set; }
 
+        public char[] MissedLetters { get; private set; }
+
         public void Try(char letter)
         {
-            _gallowGameAttempts.Manage(letter, Word.IndexOfLetter(letter));
+            _gallowGameAttempts.Manage(letter, Word.IndexOfLetter(letter).ToList());
 
             if (!Word.Contains(letter))
                 MissCount++;
@@ -67,5 +36,29 @@ namespace Gallows.Game
             return word;
 
         }
+
+        public IEnumerable<char> GetMissedLetters()
+        {
+            var resultado = new List<char>();
+            var wrongLetters = _gallowGameAttempts.GetWrongLetters().ToList();
+            foreach (var wrongLetter in wrongLetters)
+                resultado.Add(wrongLetter.Key);
+
+            return resultado;
+        }
+
+        public GallowsGameState GetResult()
+        {
+            return 
+                Word.Value == this.ToString() ? 
+                    GallowsGameState.Win : 
+                        this.GetMissedLetters().Count() == 7 ? 
+                            GallowsGameState.Lose : GallowsGameState.Playing;
+        }
+    }
+
+    public enum GallowsGameState
+    {
+        Win, Lose, Playing
     }
 }

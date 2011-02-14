@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 namespace Gallows.Game.Tests
 {
@@ -31,7 +32,6 @@ namespace Gallows.Game.Tests
             Assert.That(game.MissCount, Is.EqualTo(1));
         }
 
-
         [Test]
         public void When_Try_Letter_Already_Tried_Throws_Exception()
         {
@@ -42,8 +42,11 @@ namespace Gallows.Game.Tests
             game.Try('x');
 
             //Assert
-            Assert.That(() => { game.Try('x');
-                                return true; }, 
+            Assert.That(() =>
+            {
+                game.Try('x');
+                return true;
+            },
                                     Throws
                                       .Exception
                                       .TypeOf<GameLetterException>()
@@ -61,6 +64,86 @@ namespace Gallows.Game.Tests
 
             //Assert
             Assert.That(game.ToString(), Is.EqualTo("??????a??"));
+        }
+
+        [Test]
+        public void When_Word_Contains_Same_Letter_Two_Times_Return_Word_Filled()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("arara"));
+
+            //Act
+            game.Try('a');
+
+            //Assert
+            Assert.That(game.ToString(), Is.EqualTo("a?a?a"));
+
+        }
+
+        [Test]
+        public void Game_Returns_Letter_Which_I_Missed()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("interface"));
+            game.Try('m');
+            game.Try('z');
+
+            //Act
+            var result = game.GetMissedLetters().ToList();
+
+            //Assert
+            Assert.That(result.ToArray(), Is.EqualTo(new char[] { 'm', 'z' }));
+        }
+
+        [Test]
+        public void When_All_Letters_Are_Correct_I_Won()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("teste"));
+            game.Try('t');
+            game.Try('e');
+            game.Try('s');
+
+            //Act
+            var result = game.GetResult();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(GallowsGameState.Win));
+        }
+
+        [Test]
+        public void While_Some_Letters_Were_Not_Discovered_I_Did_Not_Win()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("teste"));
+            game.Try('t');
+            game.Try('e');
+
+            //Act
+            var result = game.GetResult();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(GallowsGameState.Playing));
+        }
+
+        [Test]
+        public void If_I_Miss_Seven_Times_I_Lose()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("teste"));
+            game.Try('t');
+            game.Try('e');
+            game.Try('x');
+            game.Try('a');
+            game.Try('b');
+            game.Try('i');
+            game.Try('o');
+
+            //Act
+            var result = game.GetResult();
+
+            //Assert
+            Assert.That(result, Is.EqualTo(GallowsGameState.Lose));
         }
 
     }

@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Gallows.Game
@@ -26,9 +25,20 @@ namespace Gallows.Game
 
         public IEnumerable<int> IndexOfLetter(char letter)
         {
+
+            var passou = false;
+
             for (int i = 0; i < Value.Length; i++)
                 if (Value[i].Equals(letter))
+                {
+                    passou = true;
                     yield return i;
+                    
+                }
+
+            if (!passou)
+                yield return -1;
+     
         }
 
         public string GhostWord()
