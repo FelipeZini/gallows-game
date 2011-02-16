@@ -16,7 +16,7 @@ namespace Gallows.Game.Tests
             game.Try('a');
 
             //Assert
-            Assert.That(game.MissCount, Is.EqualTo(0));
+            Assert.That(game.MissCount(), Is.EqualTo(0));
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Gallows.Game.Tests
             game.Try('x');
 
             //Assert
-            Assert.That(game.MissCount, Is.EqualTo(1));
+            Assert.That(game.MissCount(), Is.EqualTo(1));
         }
 
         [Test]
@@ -131,8 +131,8 @@ namespace Gallows.Game.Tests
         {
             //Arrange
             var game = new GallowGame(new Word("teste"));
-            game.Try('t');
-            game.Try('e');
+            game.Try('h');
+            game.Try('p');
             game.Try('x');
             game.Try('a');
             game.Try('b');

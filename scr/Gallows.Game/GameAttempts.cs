@@ -3,17 +3,17 @@ using System.Linq;
 
 namespace Gallows.Game
 {
-    public class GallowGameAttempts
+    public class GameAttempts
     {
-        public IDictionary<char, int[]> Attempts;
+        private IDictionary<char, int[]> Attempts;
 
-        public GallowGameAttempts()
+        public GameAttempts()
         {
             this.Attempts = new Dictionary<char, int[]>();
         }
 
         public void Manage(char letter, IEnumerable<int> index)
-         {
+        {
             if (this.Attempts.ContainsKey(letter))
                 throw new GameLetterException(Gallows.Game.Properties.Resources.Message_Exception);
 
@@ -28,7 +28,7 @@ namespace Gallows.Game
 
         public IEnumerable<KeyValuePair<char, int[]>> GetCorrectLetters()
         {
-            return this.Attempts.Where(c => c.Value != new int[] { -1 });
+            return this.Attempts.Where(c => c.Value[0] != -1);
         }
 
     }
