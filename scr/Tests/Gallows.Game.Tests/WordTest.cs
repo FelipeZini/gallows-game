@@ -70,7 +70,6 @@ namespace Gallows.Game.Tests
             Assert.That(result, Is.EqualTo(new int[] { 0, 2, 4 }));
         }
 
-
         [Test]
         public void Can_I_Verify_Letter_x_In_Word_When_Letter_Does_Not_Contains()
         {
@@ -97,7 +96,6 @@ namespace Gallows.Game.Tests
             Assert.That(result, Is.EqualTo("???"));
         }
 
-
         [Test]
         public void Can_I_Get_Another_Ghost_Word()
         {
@@ -110,6 +108,7 @@ namespace Gallows.Game.Tests
             //Assert
             Assert.That(result, Is.EqualTo("?????????"));
         }
+
 
     }
 }

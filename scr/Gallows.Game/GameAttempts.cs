@@ -5,11 +5,13 @@ namespace Gallows.Game
 {
     public class GameAttempts
     {
+        private GallowGame Game;
         private IDictionary<char, int[]> Attempts;
 
-        public GameAttempts()
+        public GameAttempts(GallowGame game)
         {
             this.Attempts = new Dictionary<char, int[]>();
+            this.Game = game;
         }
 
         public void Manage(char letter, IEnumerable<int> index)
@@ -18,6 +20,17 @@ namespace Gallows.Game
                 throw new GameLetterException(Gallows.Game.Properties.Resources.Message_Exception);
 
             this.Attempts.Add(letter, index.ToArray());
+
+            VerifyResult();
+        }
+
+        private void VerifyResult()
+        {
+            if (Game.GetResult() == GallowsGameState.Lose)
+                throw new GameStateException("You lose!!!");
+
+            if (Game.GetResult() == GallowsGameState.Win)
+                throw new GameStateException("You won!!!");
         }
 
         public IEnumerable<KeyValuePair<char, int[]>> GetWrongLetters()

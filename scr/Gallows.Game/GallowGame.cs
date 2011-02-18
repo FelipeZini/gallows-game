@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+
 namespace Gallows.Game
 {
     public class GallowGame
@@ -7,7 +8,7 @@ namespace Gallows.Game
         public GallowGame(Word word)
         {
             this.Word = word;
-            _attempts = new GameAttempts();
+            _attempts = new GameAttempts(this);
         }
 
         private GameAttempts _attempts;

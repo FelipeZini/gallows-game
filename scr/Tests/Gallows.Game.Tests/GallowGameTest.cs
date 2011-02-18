@@ -146,5 +146,52 @@ namespace Gallows.Game.Tests
             Assert.That(result, Is.EqualTo(GallowsGameState.Lose));
         }
 
+        [Test]
+        public void I_Cannot_Play_If_I_Won()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("teste"));
+            game.Try('t');
+            game.Try('e');
+            game.Try('s');
+   
+            //Assert
+            Assert.That(() =>
+            {
+                game.Try('x'); //Act
+                return true;
+            },
+                                    Throws
+                                      .Exception
+                                      .TypeOf<GameStateException>()
+                                      .With.Message.EquivalentTo("You have already won."));
+        }
+
+        [Test]
+        public void I_Cannot_Play_If_I_Lose()
+        {
+            //Arrange
+            var game = new GallowGame(new Word("teste"));
+            game.Try('i');
+            game.Try('u');
+            game.Try('w');
+            game.Try('q');
+            game.Try('o');
+            game.Try('p');
+            game.Try('n');
+
+            //Assert
+            Assert.That(() =>
+            {
+                game.Try('x'); //Act
+                return true;
+            },
+                                    Throws
+                                      .Exception
+                                      .TypeOf<GameStateException>()
+                                      .With.Message.EquivalentTo("You have already lose."));
+        }
+
+
     }
 }
